@@ -7,7 +7,7 @@
 이 프로그램을 사용하려면 [파이썬](https://github.com/python)과 [mido 모듈](https://github.com/mido/mido)(현재 1.2.10)이 필요합니다.
 [이 글](https://foreverhappiness.tistory.com/25#%ED%99%98%EA%B2%BD%20%EB%B3%80%EC%88%98%20%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)을 따라 파이썬과 pip을 설치한 다음 명령 프롬프트에 'pip3 install mido'라고 입력하면 mido 모듈이 설치됩니다.
 
-아직 개발 단계입니다. 더 많은 기능들은 추후 추가할 예정입니다.
+**아직 개발 단계입니다.** 더 많은 기능들은 추후 추가할 예정입니다.
 
 [사용법]
 ---
@@ -23,14 +23,45 @@
 
 ![4](https://user-images.githubusercontent.com/99316134/201531614-00963a1f-5738-4a1c-be42-ace6120ae8b1.PNG)
 
-준비는 전부 되었습니다.
+준비는 전부 되었습니다. 이제 다음으로 진행합시다.
 
 ![5](https://user-images.githubusercontent.com/99316134/201531615-9ea85b8a-8c6b-47c0-a881-0078e0f12d87.PNG)
+
+마찬가지로 프로그램이 설치된 곳과 같은 폴더에 로직.txt 파일이 생겨있을 겁니다.
+확인은 조금 있다가 하고, 우선 민더를 켜 줍니다.
+
 ![7](https://user-images.githubusercontent.com/99316134/201531628-52994e37-81de-4e37-9113-ec4380f878cc.PNG)
+
+편집기로 들어가서 midi.msav 파일을 불러와줍니다.
+
 ![8](https://user-images.githubusercontent.com/99316134/201531630-1d976157-999c-4808-8b4e-3237f90e6f90.PNG)
+
+맵의 편집기를 열고, esc를 눌러서 인 게임 편집으로 가줍니다.
+
 ![9](https://user-images.githubusercontent.com/99316134/201531631-b822825e-16d7-4da6-add1-b8c3e5ce2f52.PNG)
+
+맵 구성은 기본적으로 이렇게 되어 있습니다. 그냥 사용하셔도 되지만 필요하다면 수정해도 상관없습니다.
+
 ![10](https://user-images.githubusercontent.com/99316134/201531633-0e4ce713-9c7e-470c-9c7e-63b14817f852.PNG)
+
+중요한 점은 프로세서 중 하나가 반드시 모든 노트블록과 스위치, 메모 블록과 메모리 셀에 연결되어 있어야 한다는 것입니다.
+
 ![6](https://user-images.githubusercontent.com/99316134/201531640-86387db4-35be-40c0-a451-8de067de5391.PNG)
+
+그 후 아까 보았던 로직.txt 파일의 내용(0번 페이지)을 복사(Ctrl+ACV)해서 프로세서에 붙여넣어줍니다.
+
 ![11](https://user-images.githubusercontent.com/99316134/201531645-f17ebacd-7449-4f33-aeda-a7abc0c2a8c6.PNG)
+
+나머지 프로세서는 노트블록과 메모리 셀에만 연결되어 있으면 됩니다.
+
+![13](https://user-images.githubusercontent.com/99316134/201532444-2d8871c0-9de0-49f5-bbba-55e37b57d9b9.PNG)
+
+다른 페이지를 불러와서 아까와 같이 복붙해줍시다.
+
 ![12](https://user-images.githubusercontent.com/99316134/201531647-4898761d-f98d-4001-b9bd-f3ac337d0efa.PNG)
+
+다 했으면 ~~맵을 좀 꾸미고 나서~~ 저장하고 나와줍니다.
+
 ![1](https://user-images.githubusercontent.com/99316134/201531651-b2d498cd-3cbb-4863-a443-c975c2476aae.PNG)
+
+사용자 지정 게임을 시작해서 감상하시면 됩니다.
