@@ -1,4 +1,4 @@
-# Midi2Logic-2
+# Midi2Logic 2
 
 [개요]
 ---
@@ -23,7 +23,7 @@
 
 ![4](https://user-images.githubusercontent.com/99316134/201531614-00963a1f-5738-4a1c-be42-ace6120ae8b1.PNG)
 
-준비는 전부 되었습니다. 이제 다음으로 진행합시다.
+변환이 끝나면 블록과 페이지 수를 표시합니다. 블록은 필요한 노트블록의 수, 페이지는 필요한 프로세서의 수입니다.
 
 ![5](https://user-images.githubusercontent.com/99316134/201531615-9ea85b8a-8c6b-47c0-a881-0078e0f12d87.PNG)
 
@@ -44,7 +44,7 @@
 
 ![10](https://user-images.githubusercontent.com/99316134/201531633-0e4ce713-9c7e-470c-9c7e-63b14817f852.PNG)
 
-중요한 점은 프로세서 중 하나가 반드시 모든 노트블록과 스위치, 메모 블록과 메모리 셀에 연결되어 있어야 한다는 것입니다.
+중요한 점은 프로세서 중 하나가 반드시 모든 노트블록과 스위치(3개), 메모 블록과 메모리 셀(각각 1개)에 연결되어 있어야 한다는 것입니다.
 
 ![6](https://user-images.githubusercontent.com/99316134/201531640-86387db4-35be-40c0-a451-8de067de5391.PNG)
 
