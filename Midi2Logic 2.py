@@ -124,30 +124,30 @@ while True:
     Line=0
     Track='setrate 100\nread x cell1 0\njump 1 notEqual x '+str(Page)+'\n'
     while Line<996:
-        if Sheet[Play][2]-Time>0 :
+        if Sheet[Play][2]-Time>0 : #노트 간 간격
             Track+='wait '+str(((Sheet[Play][2]-Time)*Tempo)/(TPB*Speed*1000000))+'\n'
             Line+=1
             Time=Sheet[Play][2]
         if Line==996 :
             break
-        if Sheet[Play][0]=="0" :
+        if Sheet[Play][0]=="0" : #템포 변경
             Tempo=Sheet[Play][1]
-        elif Sheet[Play][0]==None :
+        elif Sheet[Play][0]==None : #마지막 노트
             if Sheet[Play][2]-Time>0 :
                 Track+='wait '+str(((Sheet[Play][2]-Time)*Tempo)/(TPB*Speed*1000000))+'\n'
                 Line+=1
-        else :
+        else : #노트 연주
             Track+='control config block'+Sheet[Play][0]+' '+Sheet[Play][1]+'\n'
             Line+=1
         Play+=1
         if Play==len(Sheet) :
             break
-    if Play==len(Sheet) :
+    if Play==len(Sheet) : #모든 노트 연주됨
         Max=str(Page)
         Track+='write 0 cell1 0'
         Code.append(Track)
         break
-    else :
+    else : #아직 연주가 끝나지 않음
         Page+=1
         Track+='write '+str(Page)+' cell1 0'
         Code.append(Track)
