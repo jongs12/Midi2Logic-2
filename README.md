@@ -2,10 +2,10 @@
 
 [개요]
 ---
-미디 파일을 읽어서 게임 '[Mindustry](https://github.com/Anuken/Mindustry)'의 모드 중 하나인 '[Betamindy](https://github.com/sk7725/BetaMindy)'의 노트블럭을 연주하는 로직 코드를 짜주는 [프로그램](https://github.com/jongs12/Midi2Logic)의 개선된 버전입니다.
+미디 파일을 읽어서 [Mindustry](https://github.com/Anuken/Mindustry)의 모드 중 하나인 [Betamindy](https://github.com/sk7725/BetaMindy)의 노트블럭을 연주하는 로직 코드를 짜주는 [프로그램](https://github.com/jongs12/Midi2Logic)의 개선된 버전입니다.
 
 이 프로그램을 사용하려면 [파이썬](https://github.com/python)과 [mido 모듈](https://github.com/mido/mido)(현재 1.2.10)이 필요합니다.
-[이 글](https://foreverhappiness.tistory.com/25#%ED%99%98%EA%B2%BD%20%EB%B3%80%EC%88%98%20%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)을 따라 파이썬과 pip을 설치한 다음 명령 프롬프트에 'pip3 install mido'라고 입력하면 mido 모듈이 설치됩니다.
+[이 글](https://foreverhappiness.tistory.com/25#%ED%99%98%EA%B2%BD%20%EB%B3%80%EC%88%98%20%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0)을 따라 파이썬과 pip을 설치한 다음 명령 프롬프트에 *pip3 install mido*라고 입력하면 mido 모듈이 설치됩니다.
 
 **아직 개발 단계입니다.** 더 많은 기능들은 추후 추가할 예정입니다.
 
