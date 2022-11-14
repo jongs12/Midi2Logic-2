@@ -72,16 +72,17 @@ for I in range(len(Midi)):
                 Tempo=int(LineZ[1])
             elif LineZ[0].strip()=="time" : #time 추가
                 Time+=float(LineZ[1].split(")")[0])
-        if LineY[0].strip()=="'end_of_track'" : #end_of_track의 경우 트랙 리셋
-            Sheet+=Track
+        if LineY[0].strip()=="'end_of_track'" : #end_of_track의 경우
             Play=0
             for J in range(len(Track)):
-                if Track[J][0]!="0" :
+                if Track[J][0]!="0" : #추가된 노트가 있으면 블록 번호 증가
                     Play=1
+            Track+=[[None,None,Time]]
+            Sheet+=Track #트랙 리셋
+            Track=[]
             if Play==1 :
                 Block+=1
-            Track=[]
-            if Type==1 :
+            if Type==1 : #미디 타입이 1이면 시간 리셋
                 Time=0
         elif Play==1 : #템포 변경 감지 시
             Track+=[["0",Tempo,Time]]
@@ -131,6 +132,10 @@ while True:
             break
         if Sheet[Play][0]=="0" :
             Tempo=Sheet[Play][1]
+        elif Sheet[Play][0]==None :
+            if Sheet[Play][2]-Time>0 :
+                Track+='wait '+str(((Sheet[Play][2]-Time)*Tempo)/(TPB*Speed*1000000))+'\n'
+                Line+=1
         else :
             Track+='control config block'+Sheet[Play][0]+' '+Sheet[Play][1]+'\n'
             Line+=1
