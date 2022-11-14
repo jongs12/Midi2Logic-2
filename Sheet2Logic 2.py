@@ -51,6 +51,7 @@ Sheet=[]
 Track=[]
 Block=0
 Time=0
+NoChange=0
 for I in range(len(Midi)):
     LineX=Midi[I].split(" ")
     if LineX[0]=="트랙" : #트랙의 경우
