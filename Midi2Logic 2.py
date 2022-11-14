@@ -15,7 +15,7 @@ while True:
     except FileNotFoundError:
         print("그런 파일은 안 보이는데요, 다시 확인해 주시겠어요?")
     else:
-        if len(Name)>32 :
+        if len(Name)>32 : #긴 이름 잘라내기
             Name=list(Name)
             for I in range(32,len(Name)):
                 Name[I]=""
@@ -170,7 +170,7 @@ while True :
     print()
     print("페이지 번호를 입력하세요. 비워두면 다음 페이지로 넘어갑니다. ")
     Name=input("end를 입력하면 프로그램을 종료합니다.")
-    if Name=="end" :
+    if Name=="end" : #페이지 이동
         print()
         break
     else :
