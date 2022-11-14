@@ -119,7 +119,7 @@ while True:
     Track='setrate 100\nread x cell1 0\njump 1 notEqual x '+str(Page)+'\n'
     while Line<996:
         if Sheet[Play][2]-Time>0 : #노트 간 간격
-            Track+='wait '+str((60*(Sheet[Play][2]-Time))/Tempo)+'\n'
+            Track+='wait '+str((60*(Sheet[Play][2]-Time))/Speed*Tempo)+'\n'
             Line+=1
             Time=Sheet[Play][2]
         if Line==996 :
@@ -128,7 +128,7 @@ while True:
             Tempo=Sheet[Play][1]
         elif Sheet[Play][0]==None : #마지막 노트
             if Sheet[Play][2]-Time>0 :
-                Track+='wait '+str((60*(Sheet[Play][2]-Time))/Tempo)+'\n'
+                Track+='wait '+str((60*(Sheet[Play][2]-Time))/Speed*Tempo)+'\n'
                 Line+=1
         else : #노트 연주
             Track+='control config block'+Sheet[Play][0]+' '+Sheet[Play][1]+'\n'
