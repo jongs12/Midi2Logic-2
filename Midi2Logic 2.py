@@ -54,49 +54,54 @@ Tempo=0
 Time=0
 for I in range(len(Midi)):
     LineX=Midi[I].split("(")
-    #MidiFile일 경우: type, ticks_per_beat 확인
-    if LineX[0].strip()=="MidiFile" :
+    if LineX[0].strip()=="MidiFile" : #MidiFile의 경우
         LineY=LineX[1].split(",")
         for J in range(len(LineY)):
             LineZ=LineY[J].split("=")
-            if LineZ[0].strip()=="type" :
+            if LineZ[0].strip()=="type" : #type 확인
                 Type=int(LineZ[1])
-            elif LineZ[0].strip()=="ticks_per_beat" :
+            elif LineZ[0].strip()=="ticks_per_beat" : #ticks_per_beat 확인
                 TPB=int(LineZ[1])
-    #MetaMessage일 경우: tempo, time 확인
-    elif LineX[0].strip()=="MetaMessage" :
+    elif LineX[0].strip()=="MetaMessage" : #MetaMessage의 경우
+        Play=0
         LineY=LineX[1].split(",")
         for J in range(len(LineY)):
             LineZ=LineY[J].split("=")
-            if LineZ[0].strip()=="tempo" :
+            if LineZ[0].strip()=="tempo" : #tempo 확인
+                Play=1
                 Tempo=int(LineZ[1])
-            elif LineZ[0].strip()=="time" :
-                Time+=((float(LineZ[1].split(")")[0])/TPB)*Tempo)/(Speed*1000000)
-        if LineY[0].strip()=="'end_of_track'" :
-            if Track!=[] :
-                Sheet+=Track
-                Track=[]
+            elif LineZ[0].strip()=="time" : #time 추가
+                Time+=float(LineZ[1].split(")")[0])
+        if LineY[0].strip()=="'end_of_track'" : #end_of_track의 경우 트랙 리셋
+            Sheet+=Track
+            Play=0
+            for J in range(len(Track)):
+                if Track[J][0]!="0" :
+                    Play=1
+            if Play==1 :
                 Block+=1
+            Track=[]
             if Type==1 :
                 Time=0
-    #Message일 경우: note_on이고 velocity가 0이 아닐 경우 note 확인, 아니면 time만 확인
-    elif LineX[0].strip()=="Message" :
+        elif Play==1 : #템포 변경 감지 시
+            Track+=[["0",Tempo,Time]]
+    elif LineX[0].strip()=="Message" : #Message의 경우
         Play=[0,0,0]
         LineY=LineX[1].split(",")
         for J in range(len(LineY)):
             LineZ=LineY[J].split("=")
-            if LineZ[0].strip()=="'note_on'" :
+            if LineZ[0].strip()=="'note_on'" : #note_on인지 확인
                 Play[0]=1
-            elif LineZ[0].strip()=="note" :
+            elif LineZ[0].strip()=="note" : #범위 내 노트인지 확인
                 if 0<=int(LineZ[1])-24+Pitch<=83 :
                     Note=Notes[int(LineZ[1])-24+Pitch]
                     Play[1]=1
-            elif LineZ[0].strip()=="velocity" :
+            elif LineZ[0].strip()=="velocity" : #velocity가 0이 아닌지 확인
                 if int(LineZ[1])!=0 :
                     Play[2]=1
-            elif LineZ[0].strip()=="time" :
-                Time+=((float(LineZ[1].split(")")[0])/TPB)*Tempo)/(Speed*1000000)
-        if Play==[1,1,1] :
+            elif LineZ[0].strip()=="time" : #time 추가
+                Time+=float(LineZ[1].split(")")[0])
+        if Play==[1,1,1] : #조건 만족 시 노트 추가
             Track+=[[str(Block+1),Note,Time]]
 print()
 Sheet.sort(key=lambda x: x[2])
@@ -110,6 +115,7 @@ for I in range(Block):
 Track+='jump '+str(37+Block)+' equal x 0\nread t1 cell1 2\nset t2 @time\nop sub t t2 t1\nop div t t 10\nop idiv t t 1\nop div t t 100\nprint t\nprint "\\n"\nprint "[#2030D0]Made with "\nprint "[#FFFF00]Midi2Logic"\nprintflush message1'
 Code.append(Track)
 #페이지 >=1
+Tempo=0
 Time=0
 Play=0
 Page=1
@@ -118,13 +124,16 @@ while True:
     Track='setrate 100\nread x cell1 0\njump 1 notEqual x '+str(Page)+'\n'
     while Line<996:
         if Sheet[Play][2]-Time>0 :
-            Track+='wait '+str(Sheet[Play][2]-Time)+'\n'
+            Track+='wait '+str(((Sheet[Play][2]-Time)*Tempo)/(TPB*Speed*1000000))+'\n'
             Line+=1
             Time=Sheet[Play][2]
         if Line==996 :
             break
-        Track+='control config block'+Sheet[Play][0]+' '+Sheet[Play][1]+'\n'
-        Line+=1
+        if Sheet[Play][0]=="0" :
+            Tempo=Sheet[Play][1]
+        else :
+            Track+='control config block'+Sheet[Play][0]+' '+Sheet[Play][1]+'\n'
+            Line+=1
         Play+=1
         if Play==len(Sheet) :
             break
