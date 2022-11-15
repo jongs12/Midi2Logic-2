@@ -52,6 +52,7 @@ Track=[]
 Block=0
 Time=0
 NoChange=0
+Drum=[]
 for I in range(len(Midi)):
     LineX=Midi[I].split(" ")
     if LineX[0]=="트랙" : #트랙의 경우
@@ -78,6 +79,7 @@ for I in range(len(Midi)):
                         Track+=[[str(Block+1),Notes[J+Pitch-3],Time]]
                 else :
                     if LineX[0]==Key[J] and 0<=J-3<=83 :
+                        Drum+=str(Block+1)
                         Track+=[[str(Block+1),Notes[J-3],Time]]
         else:
             if LineX[0]>0 :
@@ -106,7 +108,14 @@ Code=[]
 #페이지 0
 Track='setrate 100\nread x cell1 0\njump '+str(28+Block)+' notEqual x 0\nsensor a switch1 @enabled\njump 10 notEqual a 1\ncontrol enabled switch1 0 0 0 0\nset t1 @time\nwrite t1 cell1 2\nwrite 1 cell1 0\njump '+str(28+Block)+' always\nsensor b switch2 @enabled\njump 18 notEqual b 1\ncontrol enabled switch2 0 0 0 0\nread i cell1 1\nop add i i 1\njump 17 lessThan i 10\nset i 0\nwrite i cell1 1\nsensor c switch3 @enabled\njump 26 notEqual c 1\ncontrol enabled switch3 0 0 0 0\nread i cell1 1\nop sub i i 1\njump 25 greaterThanEq i 0\nset i 9\nwrite i cell1 1\nprint "'+Name+'\\n"\nread i cell1 1\n'
 for I in range(Block):
-    Track+='control color block'+str(I+1)+' i 0 0 0\n'
+    NoChange=0
+    for J in range(len(Drum)):
+        if str(I+1)==Drum[J] :
+            NoChange=1
+    if NoChange==0 :
+        Track+='control color block'+str(I+1)+' i 0 0 0\n'
+    else :
+        Track+='control color block'+str(I+1)+' 10 0 0 0\n'
 Track+='jump '+str(37+Block)+' equal x 0\nread t1 cell1 2\nset t2 @time\nop sub t t2 t1\nop div t t 10\nop idiv t t 1\nop div t t 100\nprint t\nprint "\\n"\nprint "[#2030D0]Made with "\nprint "[#FFFF00]Midi2Logic"\nprintflush message1'
 Code.append(Track)
 #페이지 >=1
