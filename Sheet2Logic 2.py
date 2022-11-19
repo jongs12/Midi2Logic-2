@@ -116,7 +116,7 @@ for I in range(Block):
         Track+='control color block'+str(I+1)+' i 0 0 0\n'
     else :
         Track+='control color block'+str(I+1)+' 10 0 0 0\n'
-Track+='jump '+str(37+Block)+' equal x 0\nread t1 cell1 2\nset t2 @time\nop sub t t2 t1\nop div t t 10\nop idiv t t 1\nop div t t 100\nprint t\nprint "\\n"\nprint "[#2030D0]Made with "\nprint "[#FFFF00]Midi2Logic"\nprintflush message1'
+Track+='jump '+str(40+Block)+' equal x 0\ncontrol enabled switch1 0 0 0 0\ncontrol enabled switch2 0 0 0 0\ncontrol enabled switch3 0 0 0 0\nread t1 cell1 2\nset t2 @time\nop sub t t2 t1\nop div t t 10\nop idiv t t 1\nop div t t 100\nprint t\nprint "\\n"\nprint "[#2030D0]Made with "\nprint "[#FFFF00]Sheet2Logic"\nprintflush message1'
 Code.append(Track)
 #페이지 >=1
 Tempo=1
