@@ -110,10 +110,13 @@ Sheet.sort(key=lambda x: x[2])
 #분석한 파일을 로직 코드로 변환
 Code=[]
 #페이지 0
-Track='setrate 100\nread x cell1 0\njump '+str(28+Block)+' notEqual x 0\nsensor a switch1 @enabled\njump 10 notEqual a 1\ncontrol enabled switch1 0 0 0 0\nset t1 @time\nwrite t1 cell1 2\nwrite 1 cell1 0\njump '+str(28+Block)+' always\nsensor b switch2 @enabled\njump 18 notEqual b 1\ncontrol enabled switch2 0 0 0 0\nread i cell1 1\nop add i i 1\njump 17 lessThan i 10\nset i 0\nwrite i cell1 1\nsensor c switch3 @enabled\njump 26 notEqual c 1\ncontrol enabled switch3 0 0 0 0\nread i cell1 1\nop sub i i 1\njump 25 greaterThanEq i 0\nset i 9\nwrite i cell1 1\nprint "'+Name+'\\n"\nread i cell1 1\n'
+Track='setrate 100\nread x cell1 0\njump 10 notEqual x 0\nsensor a switch1 @enabled\njump 9 notEqual a 1\nset t1 @time\nwrite t1 cell1 2\nwrite 1 cell1 0\njump 10 always\nprint "'+Name+'\\n"\njump 20 equal x 0\ncontrol enabled switch1 0\nread t1 cell1 2\nset t2 @time\nop sub t t2 t1\nop div t t 10\nop idiv t t 1\nop div t t 100\nprint t\nprint "\\n"\nsensor a switch2 @enabled\njump 26 notEqual a 1\ncontrol enabled switch2 0\nread i cell1 1\nop add i i 11\njump 31 always\nsensor a switch3 @enabled\njump '+str(34+Block)+' notEqual a 1\ncontrol enabled switch3 0\nread i cell1 1\nop add i i 19\nop sub i i 10\njump 31 greaterThan i 9\nwrite i cell1 1\n'
+if Block>963 :
+    print("트랙 수가 너무 많아 일부를 제외하였습니다.\n")
+    Block=963
 for I in range(Block):
-    Track+='control color block'+str(I+1)+' i 0 0 0\n'
-Track+='jump '+str(40+Block)+' equal x 0\ncontrol enabled switch1 0 0 0 0\ncontrol enabled switch2 0 0 0 0\ncontrol enabled switch3 0 0 0 0\nread t1 cell1 2\nset t2 @time\nop sub t t2 t1\nop div t t 10\nop idiv t t 1\nop div t t 100\nprint t\nprint "\\n"\nprint "[#2030D0]Made with "\nprint "[#FFFF00]Midi2Logic"\nprintflush message1'
+    Track+='control color block'+str(I+1)+' i\n'
+Track+='print "[#2030D0]Made with"\nprint "[#FFFF00] Midi2Logic"\nprintflush message1'
 Code.append(Track)
 #페이지 >=1
 Tempo=0
@@ -153,11 +156,7 @@ while True:
         Code.append(Track)
 
 #출력
-if Block>960 :
-    print("트랙 수가 너무 많습니다. 오류가 발생할 가능성이 있습니다.")
-else :
-    print("완료!",end=" ")
-print("("+str(Block)+" blocks)\n")
+print("완료! ("+str(Block)+" blocks)\n")
 Page=0
 while True :
     print("페이지 "+str(Page)+"/"+Max)
