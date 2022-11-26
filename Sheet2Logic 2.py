@@ -106,7 +106,7 @@ Sheet.sort(key=lambda x: x[2])
 #분석한 파일을 로직 코드로 변환
 Code=[]
 #페이지 0
-Track='setrate 100\nread x cell1 0\njump 10 notEqual x 0\nsensor a switch1 @enabled\njump 9 notEqual a 1\nset t1 @time\nwrite t1 cell1 2\nwrite 1 cell1 0\njump 10 always\nprint "'+Name+'\\n"\njump 20 equal x 0\ncontrol enabled switch1 0\nread t1 cell1 2\nset t2 @time\nop sub t t2 t1\nop div t t 10\nop idiv t t 1\nop div t t 100\nprint t\nprint "\\n"\nsensor a switch2 @enabled\njump 26 notEqual a 1\ncontrol enabled switch2 0\nread i cell1 1\nop add i i 11\njump 31 always\nsensor a switch3 @enabled\njump '+str(34+Block)+' notEqual a 1\ncontrol enabled switch3 0\nread i cell1 1\nop add i i 19\nop sub i i 10\njump 31 greaterThan i 9\nwrite i cell1 1\n'
+Track='setrate 100\nread x cell1 0\njump 10 notEqual x 0\nsensor a switch1 @enabled\njump 9 notEqual a 1\nset t1 @time\nwrite t1 cell1 2\nwrite 1 cell1 0\njump 11 always\nprint "'+Name+'\\n"\njump 20 equal x 0\ncontrol enabled switch1 0\nread t1 cell1 2\nset t2 @time\nop sub t t2 t1\nop div t t 10\nop idiv t t 1\nop div t t 100\nprint t\nprint "\\n"\nsensor a switch2 @enabled\njump 26 notEqual a 1\ncontrol enabled switch2 0\nread i cell1 1\nop add i i 11\njump 31 always\nsensor a switch3 @enabled\njump '+str(34+Block)+' notEqual a 1\ncontrol enabled switch3 0\nread i cell1 1\nop add i i 19\nop sub i i 10\njump 31 greaterThan i 9\nwrite i cell1 1\n'
 if Block>963 :
     print("트랙 수가 너무 많아 일부를 제외하였습니다.\n")
     Block=963
