@@ -116,7 +116,7 @@ if Block>963 :
     Block=963
 for I in range(Block):
     Track+='control color block'+str(I+1)+' i\n'
-Track+='print "[#2030D0]Made with"\nprint "[#FFFF00] Midi2Logic"\nprintflush message1'
+Track+='print "[#2030D0]Made with "\nprint "[#FFFF00]Midi2Logic 2"\nprintflush message1'
 Code.append(Track)
 #페이지 >=1
 Tempo=0
