@@ -58,9 +58,9 @@ for I in range(len(Midi)):
     if LineX[0]=="트랙" : #트랙의 경우
         Play=0
         for J in range(len(Track)):
-            if Track[J][0]!="0" and Track[J][0]!=None : #추가된 노트 확인
+            if Track[J][0]!="BPM" : #추가된 노트 확인
                 Play=1
-        Track+=[[None,None,Time]]
+        Track+=[["END",None,Time]]
         Sheet+=Track #트랙 리셋
         Track=[]
         Time=0
@@ -83,7 +83,7 @@ for I in range(len(Midi)):
                         Track+=[[str(Block+1),Notes[J-3],Time]]
         else:
             if LineX[0]>0 :
-                Track+=[["0",LineX[0],Time]]
+                Track+=[["BPM",LineX[0],Time]]
         finally:
             try:
                 LineX[1]=float(LineX[1])
@@ -94,9 +94,9 @@ for I in range(len(Midi)):
                     Time+=LineX[1]
 Play=0 #트랙의 경우와 같음
 for I in range(len(Track)):
-    if Track[I][0]!="0" and Track[I][0]!=None :
+    if Track[I][0]!="BPM" :
         Play=1
-Track+=[[None,None,Time]]
+Track+=[["END",None,Time]]
 Sheet+=Track
 if Play==1 :
     Block+=1
@@ -136,9 +136,9 @@ while True:
             Time=Sheet[Play][2]
         if Line==996 :
             break
-        if Sheet[Play][0]=="0" : #템포 변경
+        if Sheet[Play][0]=="BPM" : #템포 변경
             Tempo=Sheet[Play][1]
-        elif Sheet[Play][0]==None : #마지막 노트
+        elif Sheet[Play][0]=="END" : #마지막 노트
             if Sheet[Play][2]-Time>0 :
                 Track+='wait '+str((60*(Sheet[Play][2]-Time))/(Speed*Tempo))+'\n'
                 Line+=1
