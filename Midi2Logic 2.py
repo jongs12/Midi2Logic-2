@@ -75,9 +75,9 @@ for I in range(len(Midi)):
         if LineY[0].strip()=="'end_of_track'" : #end_of_track의 경우
             Play=0
             for J in range(len(Track)):
-                if Track[J][0]!="0" : #추가된 노트가 있으면 블록 번호 증가
+                if Track[J][0]!="BPM" : #추가된 노트가 있으면 블록 번호 증가
                     Play=1
-            Track+=[[None,None,Time]]
+            Track+=[["END",None,Time]]
             Sheet+=Track #트랙 리셋
             Track=[]
             if Play==1 :
@@ -85,7 +85,7 @@ for I in range(len(Midi)):
             if Type==1 : #미디 타입이 1이면 시간 리셋
                 Time=0
         elif Play==1 : #템포 변경 감지 시
-            Track+=[["0",Tempo,Time]]
+            Track+=[["BPM",Tempo,Time]]
     elif LineX[0].strip()=="Message" : #Message의 경우
         Play=[0,0,0]
         LineY=LineX[1].split(",")
@@ -133,9 +133,9 @@ while True:
             Time=Sheet[Play][2]
         if Line==996 :
             break
-        if Sheet[Play][0]=="0" : #템포 변경
+        if Sheet[Play][0]=="BPM" : #템포 변경
             Tempo=Sheet[Play][1]
-        elif Sheet[Play][0]==None : #마지막 노트
+        elif Sheet[Play][0]=="END" : #마지막 노트
             if Sheet[Play][2]-Time>0 :
                 Track+='wait '+str(((Sheet[Play][2]-Time)*Tempo)/(TPB*Speed*1000000))+'\n'
                 Line+=1
