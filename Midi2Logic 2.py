@@ -16,10 +16,7 @@ while True:
         print("그런 파일은 안 보이는데요, 다시 확인해 주시겠어요?")
     else:
         if len(Name)>32 : #긴 이름 잘라내기
-            Name=list(Name)
-            for I in range(32,len(Name)):
-                Name[I]=""
-            Name="".join(Name)
+            Name=Name[0]+Name[1]+Name[2]+Name[3]+Name[4]+Name[5]+Name[6]+Name[7]+Name[8]+Name[9]+Name[10]+Name[11]+Name[12]+Name[13]+Name[14]+Name[15]+Name[16]+Name[17]+Name[18]+Name[19]+Name[20]+Name[21]+Name[22]+Name[23]+Name[24]+Name[25]+Name[26]+Name[27]+Name[28]+Name[29]+Name[30]+Name[31]
         Midi=Midi.split("\n")
         break
     finally:
@@ -162,31 +159,26 @@ while True :
     print("페이지 "+str(Page)+"/"+Max)
     with open(File+"로직.txt","w") as file:
         file.write(Code[Page])
-    print("로직.txt 파일의 내용을 프로세서에 붙여넣으세요.")
-    print("프로세서를 모든 노트블록과 메모리 셀에 연결하세요.")
+    print("로직.txt 파일의 내용을 프로세서에 붙여넣으세요.\n프로세서를 모든 노트블록과 메모리 셀에 연결하세요.")
     if Page==0 :
-        print("프로세서를 모든 스위치와 메모 블록에 연결하세요.")
-    print()
-    print("페이지 번호를 입력하세요. 비워두면 다음 페이지로 넘어갑니다. ")
-    Name=input("end를 입력하면 프로그램을 종료합니다.")
+        print("프로세서를 모든 스위치와 메모 블록에 연결하세요.\n\n엔터를 눌러 다음 페이지로 넘어갑니다.\n또는 페이지 번호를 직접 입력할 수 있습니다.")
+    elif Page==int(Max) :
+        print("\nend를 입력하면 프로그램을 종료합니다.")
+    else :
+        print("\n엔터를 눌러 다음 페이지로 넘어갑니다.")
+    Name=input()
     if Name=="end" : #페이지 이동
-        print()
         break
     else :
         try:
             Name=int(Name)
         except:
             Page+=1
-            if Page>int(Max) :
-                Page=0
         else:
-            if Name<0 or Name>int(Max) :
-                Page+=1
-            else :
-                Page=Name
+            Page=Name
+        finally:
             if Page>int(Max) :
                 Page=0
-        finally:
-            print("\n")
-print("이용해주셔서 감사합니다!") 
+            print()
+print("\n이용해주셔서 감사합니다!",end="")
 exit(0)
