@@ -55,7 +55,7 @@ for I in range(len(Midi)):
     if LineX[0]=="트랙" : #트랙의 경우
         Play=0
         for J in range(len(Track)):
-            if Track[J][0]!="BPM" : #추가된 노트 확인
+            if Track[J][0]!="BPM" and Track[J][0]!="LOG" : #추가된 노트 확인
                 Play=1
         Track+=[["END",None,Time]]
         Sheet+=Track #트랙 리셋
@@ -80,6 +80,13 @@ for I in range(len(Midi)):
                     if LineX[0]==Key[J] and 0<=J-3<=83 :
                         NoChange=2
                         Track+=[[str(Block+1),Notes[J-3],Time]]
+            LineX[0]=list(LineX[0])
+            if LineX[0]!=[] and LineX[0][0]=="#" :
+                LineX[0][0]=""
+                for J in range(len(LineX[0])-33):
+                    LineX[0][len(LineX[0])-1-J]=""
+                LineX[0]="".join(LineX[0])
+                Track+=[["LOG",LineX[0],Time]]
         else:
             if LineX[0]>0 :
                 Track+=[["BPM",LineX[0],Time]]
@@ -93,7 +100,7 @@ for I in range(len(Midi)):
                     Time+=LineX[1]
 Play=0 #트랙의 경우와 같음
 for I in range(len(Track)):
-    if Track[I][0]!="BPM" :
+    if Track[I][0]!="BPM" and Track[J][0]!="LOG" :
         Play=1
 Track+=[["END",None,Time]]
 Sheet+=Track
@@ -123,7 +130,7 @@ for I in range(Block):
 Track+='print "[#2030D0]Made with "\nprint "[#FFFF00]Sheet2Logic 2"\nprintflush message1'
 Code.append(Track)
 #페이지 >=1
-Tempo=1
+Tempo=120
 Time=0
 Play=0
 Page=1
@@ -139,6 +146,9 @@ while True:
             break
         if Sheet[Play][0]=="BPM" : #템포 변경
             Tempo=Sheet[Play][1]
+        elif Sheet[Play][0]=="LOG" : #위치 표시
+            Track+='print "'+Sheet[Play][1]+'"\n'
+            Line+=1
         elif Sheet[Play][0]=="END" : #마지막 노트
             if Sheet[Play][2]-Time>0 :
                 Track+='wait '+str((60*(Sheet[Play][2]-Time))/(Speed*Tempo))+'\n'
@@ -173,7 +183,7 @@ while True :
         print("\nend를 입력하면 프로그램을 종료합니다.")
     else :
         print("\n엔터를 눌러 다음 페이지로 넘어갑니다.")
-    Name=input()
+    Name=input().strip()
     if Name=="end" : #페이지 이동
         break
     else :
@@ -184,7 +194,7 @@ while True :
         else:
             Page=Name
         finally:
-            if Page>int(Max) :
+            if Page<0 or Page>int(Max) :
                 Page=0
             print()
 print("\n이용해주셔서 감사합니다!",end="")
