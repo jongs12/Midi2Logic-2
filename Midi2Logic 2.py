@@ -116,7 +116,7 @@ for I in range(Block):
 Track+='print "[#2030D0]Made with "\nprint "[#FFFF00]Midi2Logic 2"\nprintflush message1'
 Code.append(Track)
 #페이지 >=1
-Tempo=0
+Tempo=500000
 Time=0
 Play=0
 Page=1
@@ -166,7 +166,7 @@ while True :
         print("\nend를 입력하면 프로그램을 종료합니다.")
     else :
         print("\n엔터를 눌러 다음 페이지로 넘어갑니다.")
-    Name=input()
+    Name=input().strip()
     if Name=="end" : #페이지 이동
         break
     else :
@@ -177,7 +177,7 @@ while True :
         else:
             Page=Name
         finally:
-            if Page>int(Max) :
+            if Page<0 or Page>int(Max) :
                 Page=0
             print()
 print("\n이용해주셔서 감사합니다!",end="")
