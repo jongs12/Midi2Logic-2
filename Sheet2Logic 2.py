@@ -100,7 +100,7 @@ for I in range(len(Midi)):
                     Time+=LineX[1]
 Play=0 #트랙의 경우와 같음
 for I in range(len(Track)):
-    if Track[I][0]!="BPM" and Track[J][0]!="LOG" :
+    if Track[I][0]!="BPM" and Track[I][0]!="LOG" :
         Play=1
 Track+=[["END",None,Time]]
 Sheet+=Track
