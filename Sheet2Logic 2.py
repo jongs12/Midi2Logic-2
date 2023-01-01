@@ -12,7 +12,7 @@ while True:
         Midi=File+"/"+Name+".txt"
         with open(Midi,"r",encoding="UTF-8") as file:
             Midi=file.read().split("\n")
-    except FileNotFoundError:
+    except :
         print("그런 파일은 안 보이는데요, 다시 확인해 주시겠어요?")
     else:
         if len(Name)>32 : #긴 이름 잘라내기
