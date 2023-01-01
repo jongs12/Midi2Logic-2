@@ -12,7 +12,7 @@ while True:
         Name=input("mid 파일의 이름을 입력하세요. ")
         Midi=File+"/"+Name+".mid"
         Midi=str(MidiFile(Midi))
-    except FileNotFoundError:
+    except :
         print("그런 파일은 안 보이는데요, 다시 확인해 주시겠어요?")
     else:
         if len(Name)>32 : #긴 이름 잘라내기
